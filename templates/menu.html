@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+
+
+
+{% block title %}
+Menu Items
+{% endblock title %}
+
+{% block body %}
+<!-- Opening Tag -->
+<div class="container">
+<div class="row row-cols-1 row-cols-md-3">
+{% for menu_item in menu  %}
+<br>
+  <div class="col mb-4">
+    <div class="card">
+      {% if menu_item.images %}
+      <img class="card-img-top" src="{{ menu_item.images.url }}">
+      {% else %}
+      <img src="#" class="card-img-top" alt="...">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ menu_item }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ menu_item.category }}</h6>
+        <input hidden  value="{{ menu_item.id }}">
+        <a href="{% url 'add_to_cart' id=menu_item.id %}" style="background-color:green;" class="btn btn-primary"  >{{ menu_item.item_price }}</a>
+      </div>
+    </div>
+  </div>
+<br> 
+{% endfor %}
+</div>
+
+
+<!-- Closing Tag -->
+</div>
+
+{% endblock %}

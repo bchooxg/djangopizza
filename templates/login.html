@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Login Page
+{% endblock title %}
+
+{% block body %}
+<br>
+<h2>Login to your account</h2>
+<br>
+<form method='POST' action='{% url 'login' %}'>
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username">
+    <br>
+    <br>
+    <input type="password" name="password" placeholder="Password">
+    <br>
+    <br>
+    <input class="btn btn-primary" type="submit">
+
+</form>
+
+{% endblock %}

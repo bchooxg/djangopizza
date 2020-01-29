@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+
+
+
+{% block title %}
+Create a Pizza
+{% endblock %}
+
+{% block body %}
+<!-- Opening Tag -->
+<div class="container">
+        <span>
+        <!-- Food Pic -->
+        <div style="float: left;" >
+          <img style="margin:10px;width: 800px; height: 600px ;" src="{% static "website/images/pizza.jpg" %}">
+        </div>
+
+        <h1 style="color:forestgreen; padding:20px; display: inline;" id='pizza_price'></h1>
+        <br>
+        <br>
+
+        <!-- Order Options -->
+        <form style="display: inline;" action="{% url "pizza_add_to_cart" %}" method="POST">
+
+            {% csrf_token %}
+            {% for size in sizes %}
+              <input type="radio" required name="pizza_size" class="pizza_size sub" value= "{{size.id}}">{{ size }}</input>
+            {% endfor %}
+
+            <br>
+
+            {% for type in types %}
+              <input type="radio" required name="pizza_type" class="pizza_type sub" value= "{{type.id}}">{{ type }}</input>
+            {% endfor %}
+
+            <br>
+            <div class='toppings-section '>
+            {% for topping in toppings %}
+              <input type="checkbox" class='topping-checkbox sub' name="topping" value= "{{topping}}">{{ topping }}</input>
+              <br>
+            {% endfor %} 
+            </div>   
+
+            <input style="background-color: green;" class="btn btn-primary" type="submit" value="Add to Cart" >
+        </form>
+        </span>
+
+        <!-- Closing Order Options Tag -->
+
+<!-- Closing Tag -->
+</div>
+
+{% endblock %}

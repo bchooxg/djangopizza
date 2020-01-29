@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+
+
+
+{% block title %}
+Menu Items
+{% endblock title %}
+
+{% block body %}
+<!-- Opening Tag -->
+<div class="container">
+
+<div class="row row-cols-1 row-cols-md-3">
+{% for sub in subs %}
+<br>
+
+  <div class="col mb-4">
+    <div class="card">
+      {% if sub.images %}
+      <img class="card-img-top" src="{{ sub.images.url }}">
+      {% else %}
+      <img src="#" class="card-img-top" alt="...">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ sub.item_name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ sub.category }}</h6>
+        <form method="POST" action="{% url 'sub_add_to_cart' %}">
+          {% csrf_token %}
+          <input hidden name='sub_id' value="{{ sub.id }}">
+          <h6>Toppings: 50c Each</h6>
+          {% for topping in toppings %}
+            <input type="checkbox" name="toppings" value="{{ topping.description }}">{{ topping.description }}</input>
+          {% endfor %}
+          <br>  
+          {% if sub.small_price %}
+          <button type="submit" style="background-color:green;" class="btn btn-primary" name='size' value="small" >Small :${{ sub.small_price }}</button>
+          {% endif %}
+          {% if sub.large_price %}
+          <button type="submit" style="background-color:green;" class="btn btn-primary" name='size' value="large" >Large :${{ sub.large_price }}</button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+<br> 
+{% endfor %}
+</div>
+
+
+<!-- Closing Tag -->
+</div>
+
+{% endblock %}

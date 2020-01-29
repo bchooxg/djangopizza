@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Sign Up Page
+{% endblock title %}
+
+{% block body %}
+<br>
+<h2>Create your account here</h2>
+<br>
+<form method='POST' action='{% url "signup" %}'>
+    {% csrf_token %}
+    {{ form }}
+    <br>
+    <br>
+
+<input class="btn btn-primary" type="submit">
+
+</form>
+
+{% endblock %}

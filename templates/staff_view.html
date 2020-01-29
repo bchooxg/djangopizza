@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+
+
+
+{% block title %}
+Staff View
+{% endblock %}
+
+{% block body %}
+<!-- Opening Tag -->
+<br>
+
+<h1> Orders </h1>
+<br>
+
+<div class="container">
+{% if orders %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Order ID</th>
+      <th scope="col">Customer</th>
+      <th scope="col">Status</th>
+      <th scope="col">Update</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <th scope="row"> <a href="{% url  "order" id=order.id %}">{{ order.id }}</a></th>
+      <td>{{ order.cust_id }}</td>
+      <td>{{ order.order_status.latest.status }}</td>
+      <form method="POST", action="{% url 'staff_view' %}">
+        {% csrf_token %}
+        <input type="hidden" name='order' value={{ order.id }} >
+
+      {% if "Created" in order.order_status.latest.status %}
+      <td> <button class = "btn btn-primary" type="submit">Accept</button> </td>
+
+      {% elif "Accepted" in order.order_status.latest.status %}
+      <td> <button class = "btn btn-primary" type="submit">Preparing Food</button> </td>
+
+      {% elif "Preparing Food" in order.order_status.latest.status %}
+      <td> <button class = "btn btn-primary" type="submit">Out For Delivery</button> </td>
+
+      {% elif "Out For Delivery" in order.order_status.latest.status %}
+      <td> <button class = "btn btn-primary" type="submit">Completed</button> </td>
+      {% elif "Completed" in order.order_status.latest.status or "Payment Declined" in order.order_status.latest.status %}
+      <td> no further actions </td>
+
+
+      {% else %}
+      {% endif %}
+      </form>
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+</div>
+
+{% endblock %}

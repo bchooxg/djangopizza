@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+
+
+
+{% block title %}
+My Orders
+{% endblock %}
+
+{% block body %}
+<!-- Opening Tag -->
+<br>
+
+<h1> Orders </h1>
+<br>
+
+<div class="container">
+{% if orders %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Order ID</th>
+      <th scope="col">Status</th>
+      <th scope="col">Last Updated</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <th scope="row"><a href="{% url "order" id=order.id %}">{{ order.id }}</a></th>
+      <td>{{ order.order_status.latest.status }}</td>
+      <td>{{ order.order_status.latest.date }}</td>
+ 
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else %}
+<br>
+<h3>Nothing Here Yet</h3>
+
+{% endif %}
+</div>
+
+{% endblock %}
