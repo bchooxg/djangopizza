@@ -25,7 +25,7 @@ SECRET_KEY = 'zf%a)n1$ztv*t4%-%+om00%1ht10^uov+4^iaxncpswx9+tk_k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["django-pizza.herokuapp.com"]
 
 
 # Application definition
