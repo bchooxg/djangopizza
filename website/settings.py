@@ -129,7 +129,7 @@ STATICFILES_DIRS = (
                 os.path.join(BASE_DIR,'static'), # if your static files folder is named "staticfiles"
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
